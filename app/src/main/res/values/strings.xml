@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HyperTrack Use-cases</string>
+    <string name="app_name">BenAvi TruckTrack app</string>
     <string name="login_activity_title">Login</string>
 
     <string name="assign_action_btn">Assign an Action</string>

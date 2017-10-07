@@ -190,9 +190,9 @@ public class MileageTracking extends BaseActivity {
          * @NOTE: Either the coordinates of the expected delivering location
          * or it's address can be used to construct the expected place for the Action
          */
-        Place expectedPlace = new Place().setLocation(28.56217, 77.16160)
-                .setAddress("HyperTrack, Vasant Vihar")
-                .setName("HyperTrack");
+        Place expectedPlace = new Place().setLocation(-37.9121937,145.0403553)
+                .setAddress("Chabad McKinnon, 253 Jasper Rd, McKinnon VIC 3204")
+                .setName("BenAvi");
 
         /**
          * Create ActionParams object specifying the TYPE_VISIT Action parameters

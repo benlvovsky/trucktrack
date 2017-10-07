@@ -5,39 +5,39 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:name="com.lvovsky.trucktrack.UseCaseApplication"
+        android:name=".UseCaseApplication"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar" >
 
         <!-- Register Activities here -->
-        <activity android:name="com.lvovsky.trucktrack.SplashScreen">
+        <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name="com.lvovsky.trucktrack.LoginActivity"
+        <activity android:name=".LoginActivity"
             android:screenOrientation="portrait"/>
 
-        <activity android:name="com.lvovsky.trucktrack.orderTracking.OrderTracking"
+        <activity android:name=".orderTracking.OrderTracking"
             android:screenOrientation="portrait"/>
 
-        <activity android:name="com.lvovsky.trucktrack.mileageTracking.MileageTracking"
+        <activity android:name=".mileageTracking.MileageTracking"
             android:screenOrientation="portrait"/>
 
-        <activity android:name="com.lvovsky.trucktrack.locationBasedAssignment.LocationBasedAssignment"
+        <activity android:name=".locationBasedAssignment.LocationBasedAssignment"
             android:screenOrientation="portrait"/>
 
-        <activity android:name="com.lvovsky.trucktrack.workforceMonitoring.WorkforceMonitoring"
+        <activity android:name=".workforceMonitoring.WorkforceMonitoring"
             android:screenOrientation="portrait"/>
 
-        <activity android:name="com.lvovsky.trucktrack.UseCaseActivity"/>
+        <activity android:name=".UseCaseActivity"/>
 
         <!-- Register Services here -->
-        <service android:name="com.lvovsky.trucktrack.firebase.MyFirebaseMessagingService"
+        <service android:name=".firebase.MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -45,7 +45,7 @@
         </service>
 
         <service
-            android:name="com.lvovsky.trucktrack.firebase.MyFirebaseInstanceIDService">
+            android:name=".firebase.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>

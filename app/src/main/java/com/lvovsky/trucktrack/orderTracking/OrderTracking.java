@@ -141,9 +141,9 @@ public class OrderTracking extends BaseActivity {
          * {@link Place#setAddress(String)} can be used to construct
          * the expected place for the Action.
          */
-        Place expectedPlace = new Place()
-                .setAddress("HyperTrack, Vasant Vihar")
-                .setName("HyperTrack");
+        Place expectedPlace = new Place().setLocation(-37.9121937,145.0403553)
+                .setAddress("Chabad McKinnon, 253 Jasper Rd, McKinnon VIC 3204")
+                .setName("BenAvi");
 
         /**
          * Create ActionParams object specifying the Delivery Type Action
