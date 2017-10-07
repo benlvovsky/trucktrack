@@ -3,7 +3,7 @@ package com.lvovsky.trucktrack.util;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-import com.hypertrack.usecases.R;
+import com.lvovsky.trucktrack.R;
 
 
 /**

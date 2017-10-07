@@ -21,7 +21,7 @@ import com.hypertrack.lib.models.ErrorResponse;
 import com.hypertrack.lib.models.Place;
 import com.hypertrack.lib.models.SuccessResponse;
 import com.lvovsky.trucktrack.LoginActivity;
-import com.hypertrack.usecases.R;
+import com.lvovsky.trucktrack.R;
 import com.lvovsky.trucktrack.util.BaseActivity;
 import com.lvovsky.trucktrack.util.SharedPreferenceStore;
 

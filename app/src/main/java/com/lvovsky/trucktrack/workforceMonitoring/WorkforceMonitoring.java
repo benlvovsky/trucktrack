@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import com.hypertrack.lib.HyperTrack;
 import com.lvovsky.trucktrack.LoginActivity;
-import com.hypertrack.usecases.R;
+import com.lvovsky.trucktrack.R;
 import com.lvovsky.trucktrack.util.BaseActivity;
 import com.lvovsky.trucktrack.util.SharedPreferenceStore;
 

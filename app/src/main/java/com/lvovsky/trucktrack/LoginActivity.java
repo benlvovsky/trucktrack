@@ -23,7 +23,7 @@ import com.lvovsky.trucktrack.orderTracking.OrderTracking;
 import com.lvovsky.trucktrack.util.BaseActivity;
 import com.lvovsky.trucktrack.util.SharedPreferenceStore;
 import com.lvovsky.trucktrack.workforceMonitoring.WorkforceMonitoring;
-import com.hypertrack.usecases.R;
+import com.lvovsky.trucktrack.R;
 
 /**
  * This class can be used to enable Driver/Sales Person/Delivery Boy's Login flow in your app.

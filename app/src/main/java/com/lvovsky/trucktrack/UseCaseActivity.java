@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import com.hypertrack.usecases.R;
+import com.lvovsky.trucktrack.R;
 
 /**
  * Created by Aman Jain on 18/05/17.
