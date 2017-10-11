@@ -1,4 +1,4 @@
-package com.hypertrack.usecases;
+package com.lvovsky.tracktruck;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

@@ -1,4 +1,4 @@
-package com.hypertrack.usecases;
+package com.lvovsky.tracktruck;
 
 import org.junit.Test;
 

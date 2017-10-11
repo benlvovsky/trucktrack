@@ -1,4 +1,4 @@
-package com.lvovsky.trucktrack;
+package com.lvovsky.tracktruck;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,12 +7,12 @@ import android.support.v4.app.TaskStackBuilder;
 import android.text.TextUtils;
 import android.view.Window;
 
-import com.lvovsky.trucktrack.locationBasedAssignment.LocationBasedAssignment;
-import com.lvovsky.trucktrack.mileageTracking.MileageTracking;
-import com.lvovsky.trucktrack.orderTracking.OrderTracking;
-import com.lvovsky.trucktrack.util.BaseActivity;
-import com.lvovsky.trucktrack.util.SharedPreferenceStore;
-import com.lvovsky.trucktrack.workforceMonitoring.WorkforceMonitoring;
+import com.lvovsky.tracktruck.locationBasedAssignment.LocationBasedAssignment;
+import com.lvovsky.tracktruck.mileageTracking.MileageTracking;
+import com.lvovsky.tracktruck.orderTracking.OrderTracking;
+import com.lvovsky.tracktruck.util.BaseActivity;
+import com.lvovsky.tracktruck.util.SharedPreferenceStore;
+import com.lvovsky.tracktruck.workforceMonitoring.WorkforceMonitoring;
 
 
 /**

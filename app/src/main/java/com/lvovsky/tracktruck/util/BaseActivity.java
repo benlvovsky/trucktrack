@@ -1,9 +1,9 @@
-package com.lvovsky.trucktrack.util;
+package com.lvovsky.tracktruck.util;
 
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-import com.lvovsky.trucktrack.R;
+import com.lvovsky.tracktruck.R;
 
 
 /**

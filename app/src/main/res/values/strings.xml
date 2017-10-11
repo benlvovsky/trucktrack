@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BenAvi TruckTrack app ובלכתך בדרך</string>
+    <string name="app_name">BenAvi ובלכתך בדרך</string>
     <string name="login_activity_title">Login</string>
 
     <string name="assign_action_btn">Assign an Action</string>
@@ -49,7 +49,7 @@
     <string name="location_based_assignment">Location Based Assignment</string>
     <string name="work_force_monitoring">Workforce Monitoring</string>
     <string name="show_mileage">Show Mileage</string>
-    <string name="choose_your_use_case">Choose your use case</string>
+    <string name="choose_your_use_case">Select what you want to do</string>
     <string name="tracking_message">Tracking is ON.</string>
     <string name="change_use_case">Change Use Case</string>
 

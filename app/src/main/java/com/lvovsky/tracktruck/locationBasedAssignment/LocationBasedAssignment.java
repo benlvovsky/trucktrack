@@ -1,4 +1,4 @@
-package com.lvovsky.trucktrack.locationBasedAssignment;
+package com.lvovsky.tracktruck.locationBasedAssignment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,10 +7,10 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.hypertrack.lib.HyperTrack;
-import com.lvovsky.trucktrack.LoginActivity;
-import com.lvovsky.trucktrack.R;
-import com.lvovsky.trucktrack.util.BaseActivity;
-import com.lvovsky.trucktrack.util.SharedPreferenceStore;
+import com.lvovsky.tracktruck.LoginActivity;
+import com.lvovsky.tracktruck.R;
+import com.lvovsky.tracktruck.util.BaseActivity;
+import com.lvovsky.tracktruck.util.SharedPreferenceStore;
 
 public class LocationBasedAssignment extends BaseActivity {
 

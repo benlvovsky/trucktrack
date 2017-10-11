@@ -1,4 +1,4 @@
-package com.lvovsky.trucktrack;
+package com.lvovsky.tracktruck;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,13 +17,13 @@ import com.hypertrack.lib.callbacks.HyperTrackCallback;
 import com.hypertrack.lib.models.ErrorResponse;
 import com.hypertrack.lib.models.SuccessResponse;
 import com.hypertrack.lib.models.User;
-import com.lvovsky.trucktrack.locationBasedAssignment.LocationBasedAssignment;
-import com.lvovsky.trucktrack.mileageTracking.MileageTracking;
-import com.lvovsky.trucktrack.orderTracking.OrderTracking;
-import com.lvovsky.trucktrack.util.BaseActivity;
-import com.lvovsky.trucktrack.util.SharedPreferenceStore;
-import com.lvovsky.trucktrack.workforceMonitoring.WorkforceMonitoring;
-import com.lvovsky.trucktrack.R;
+import com.lvovsky.tracktruck.locationBasedAssignment.LocationBasedAssignment;
+import com.lvovsky.tracktruck.mileageTracking.MileageTracking;
+import com.lvovsky.tracktruck.orderTracking.OrderTracking;
+import com.lvovsky.tracktruck.util.BaseActivity;
+import com.lvovsky.tracktruck.util.SharedPreferenceStore;
+import com.lvovsky.tracktruck.workforceMonitoring.WorkforceMonitoring;
+import com.lvovsky.tracktruck.R;
 
 /**
  * This class can be used to enable Driver/Sales Person/Delivery Boy's Login flow in your app.

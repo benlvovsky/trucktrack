@@ -1,6 +1,9 @@
-package com.lvovsky.trucktrack.mileageTracking;
+package com.lvovsky.tracktruck.orderTracking;
 
 import android.app.ProgressDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,7 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hypertrack.lib.HyperTrack;
@@ -18,37 +20,33 @@ import com.hypertrack.lib.models.Action;
 import com.hypertrack.lib.models.ActionParams;
 import com.hypertrack.lib.models.ActionParamsBuilder;
 import com.hypertrack.lib.models.ErrorResponse;
+import com.hypertrack.lib.models.GeoJSONLocation;
 import com.hypertrack.lib.models.Place;
 import com.hypertrack.lib.models.SuccessResponse;
-import com.lvovsky.trucktrack.LoginActivity;
-import com.lvovsky.trucktrack.R;
-import com.lvovsky.trucktrack.util.BaseActivity;
-import com.lvovsky.trucktrack.util.SharedPreferenceStore;
-
-import java.util.Calendar;
+import com.lvovsky.tracktruck.LoginActivity;
+import com.lvovsky.tracktruck.R;
+import com.lvovsky.tracktruck.util.BaseActivity;
+import com.lvovsky.tracktruck.util.SharedPreferenceStore;
 import java.util.Date;
 import java.util.UUID;
 
-public class MileageTracking extends BaseActivity {
+public class OrderTracking extends BaseActivity {
 
     private ProgressDialog mProgressDialog;
-    private View.OnClickListener createActionButtonListener, completeActionButtonListener,
-            showMileageButtonListener;
-    private Button createActionButton, completeActionButton, showMileageButton;
-    private TextView mileageText;
+    private View.OnClickListener createActionButtonListener, completeActionButtonListener;
+    private Button createActionButton, completeActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mileage_tracking);
+        setContentView(R.layout.order_tracking);
 
-        SharedPreferenceStore.setUseCase(this,2);
+        SharedPreferenceStore.setUseCase(this,1);
         // Initialize UI Views
         initUIViews();
         /**
          * @IMPORTANT:
-         * Implement Network call to fetch ORDERS/TRANSACTIONS
-         * for the Driver/Sales Person/Delivery Boy here.
+         * Implement Network call to fetch ORDERS/TRANSACTIONS for the Driver/Delivery Boy here.
          * Once the list of orders/transactions have been fetched, implement
          * assignAction and completeAction calls either with or without user interaction
          * depending on the specific requirements in the workflow of your business and your app.
@@ -69,14 +67,8 @@ public class MileageTracking extends BaseActivity {
         if (completeActionButton != null)
             completeActionButton.setOnClickListener(completeActionButtonListener);
 
-        showMileageButton = (Button) findViewById(R.id.show_mileage);
-        showMileageButton.setVisibility(View.VISIBLE);
-        if(showMileageButton != null)
-            showMileageButton.setOnClickListener(showMileageButtonListener);
-
-        mileageText = (TextView) findViewById(R.id.mileage);
-
-        initToolbar(getString(R.string.mileage_tracking), false);
+        //Set toolbar title
+        initToolbar(getString(R.string.order_tracking), false);
 
     }
 
@@ -87,7 +79,7 @@ public class MileageTracking extends BaseActivity {
             public void onClick(View v) {
 
                 // Show Progress Dialog
-                mProgressDialog = new ProgressDialog(MileageTracking.this);
+                mProgressDialog = new ProgressDialog(OrderTracking.this);
                 mProgressDialog.setCancelable(false);
                 mProgressDialog.setMessage("Loading...");
                 mProgressDialog.show();
@@ -97,9 +89,9 @@ public class MileageTracking extends BaseActivity {
                  * order that is going to be tracked. This will help you search for the order on
                  * HyperTrack dashboard, and get custom views for the specific order tracking.
                  *
-                 * @NOTE: A randomly generated UUID is used as the lookup_id here.
-                 * This will be the actual orderID in your case which will be fetched from
-                 * either your server or generated locally.
+                 * @NOTE: A randomly generated UUID is used as the lookup_id here. This will be
+                 * the actual orderID in your case which will be fetched from either your server
+                 * or generated locally.
                  */
                 final String orderID = UUID.randomUUID().toString();
 
@@ -114,11 +106,10 @@ public class MileageTracking extends BaseActivity {
         completeActionButtonListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String actionID = SharedPreferenceStore.getActionID(MileageTracking.this);
+                String actionID = SharedPreferenceStore.getActionID(OrderTracking.this);
 
                 if (TextUtils.isEmpty(actionID)) {
-                    Toast.makeText(MileageTracking.this, "Action Id is empty.",
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OrderTracking.this, "Action Id is empty.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -128,52 +119,10 @@ public class MileageTracking extends BaseActivity {
                 createActionButton.setEnabled(true);
                 completeActionButton.setEnabled(false);
 
-                Toast.makeText(MileageTracking.this, "Action Completed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(OrderTracking.this, "Action Completed", Toast.LENGTH_SHORT).show();
 
             }
 
-        };
-
-        //Click Listener to get Mileage Tracked
-        showMileageButtonListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if(mProgressDialog != null ){
-                    mProgressDialog.show();
-                }
-
-                String actionID = SharedPreferenceStore.getActionID(MileageTracking.this);
-
-                if (TextUtils.isEmpty(actionID)) {
-                    Toast.makeText(MileageTracking.this, "Action Id is empty.",
-                            Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                /*
-                * To get the distance travelled by Driver/Sales Person/Delivery Boy
-                * Call this method to get action detail and from action object get
-                * distance travelled.
-                * */
-                HyperTrack.getAction(actionID, new HyperTrackCallback() {
-                    @Override
-                    public void onSuccess(@NonNull SuccessResponse successResponse) {
-                        if(mProgressDialog != null ){
-                            mProgressDialog.cancel();
-                        }
-                        Action action = (Action) successResponse.getResponseObject();
-                        if(action != null)
-                            showMileageText(action);
-
-                    }
-
-                    @Override
-                    public void onError(@NonNull ErrorResponse errorResponse) {
-
-                    }
-                });
-            }
         };
     }
 
@@ -188,40 +137,42 @@ public class MileageTracking extends BaseActivity {
          * Construct a place object for Action's expected place
          *
          * @NOTE: Either the coordinates of the expected delivering location
-         * or it's address can be used to construct the expected place for the Action
+         * {@link Place#setLocation(GeoJSONLocation)} or it's address
+         * {@link Place#setAddress(String)} can be used to construct
+         * the expected place for the Action.
          */
         Place expectedPlace = new Place().setLocation(-37.9121937,145.0403553)
                 .setAddress("Chabad McKinnon, 253 Jasper Rd, McKinnon VIC 3204")
                 .setName("BenAvi");
 
         /**
-         * Create ActionParams object specifying the TYPE_VISIT Action parameters
-         * including ExpectedPlace, ExpectedAt time and Lookup_id.
+         * Create ActionParams object specifying the Delivery Type Action
+         * parameters including ExpectedPlace, ExpectedAt time and Lookup_id.
          */
+        //Added 2 hours to current time;
+        Date expectedTime = new Date(new Date().getTime() + 2*60*60*1000);
         ActionParams createActionParams = new ActionParamsBuilder()
                 .setExpectedPlace(expectedPlace)
-                .setExpectedAt(new Date())
-                .setType(Action.ACTION_TYPE_VISIT)
+                .setExpectedAt(expectedTime)
+                .setType(Action.ACTION_TYPE_DELIVERY)
                 .setLookupId(orderID)
                 .build();
 
         /**
-         * Call createAndAssignAction to assign TYPE_VISIT to the current user configured
+         * Call createAndAssignAction to assign Delivery action to the current user configured
          * in the SDK using the ActionParams created above.
          */
         HyperTrack.createAndAssignAction(createActionParams, new HyperTrackCallback() {
             @Override
             public void onSuccess(@NonNull SuccessResponse response) {
 
-                if(mProgressDialog != null )
-                    mProgressDialog.cancel();
-
                 // Handle createAndAssignAction API success here
                 Action action = (Action) response.getResponseObject();
 
                 /**
-                 * The TYPE_VISIT Action just created has the tracking url which can be
-                 * shared with your customers. This will enable the customer to live track.
+                 * The Delivery Action just created has the tracking url which can be shared
+                 * with your customers.
+                 * This will enable the customer to live track the Delivery Boy / Driver.
                  *
                  * @NOTE You can now share this tracking_url with your customers via an SMS
                  * or via your Customer app using in-app notifications.
@@ -230,8 +181,9 @@ public class MileageTracking extends BaseActivity {
 
                 onCreateAndAssignActionSuccess(action);
 
-                Toast.makeText(MileageTracking.this, "Action Created Successfully",
+                Toast.makeText(OrderTracking.this, "Action Created Successfully.",
                         Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
@@ -240,70 +192,31 @@ public class MileageTracking extends BaseActivity {
                     mProgressDialog.dismiss();
                 }
 
-                Toast.makeText(MileageTracking.this, "Action assingment failed: " +
+                Toast.makeText(OrderTracking.this, "Action assingment failed: " +
                                 errorResponse.getErrorMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void onCreateAndAssignActionSuccess(Action action) {
+        if(mProgressDialog != null )
+            mProgressDialog.cancel();
+
+        SharedPreferenceStore.setActionID(OrderTracking.this, action.getId());
+
         //Disable Create Action Button and enable complete Action Button
         createActionButton.setEnabled(false);
         completeActionButton.setEnabled(true);
 
-        showMileageButton.setVisibility(View.VISIBLE);
-        showMileageButton.setEnabled(true);
-        SharedPreferenceStore.setActionID(MileageTracking.this, action.getId());
-
-    }
-
-
-    private void showMileageText(Action action){
-        if(mileageText == null)
-            return;
-
-        /**
-         * action.getDistanceInKMS method returns distance travelled
-         * by Driver/Sales Person/Delivery Boy in Kilometer.
-         * Developer can call action.getDistance to get distance in meters.
-         */
-        Double distance = action.getDistanceInKMS();
-
-        if(distance == null)
-            distance = new Double(0);
-
-        Integer duration = getCurrentDurationInMinutes(action);
-
-        mileageText.setText("Distance : "+String.valueOf(distance)+" KM\nDuration : "+
-                String.valueOf(duration)+" min");
+        //Uncomment this code so that action ID will copy in clipboard
+        ((ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE)).
+                setPrimaryClip(ClipData.newPlainText("ActionID", action.getId()));
 
     }
 
     /**
-     * Call this method to get duration of action since the action has started to current time,
-     * if action has completed then duration will calculate using started time of
-     * action to completed time.
-     *  @param action
-     */
-    public Integer getCurrentDurationInMinutes(Action action){
-        if (action.getStartedAT() == null ) {
-            return null;
-        }
-
-        if(action.getDurationInMinutes() != null){
-            return action.getDurationInMinutes();
-        }
-
-        Date currentTime = Calendar.getInstance().getTime();
-        long duration = currentTime.getTime() - action.getStartedAT().getTime();
-        double durationInMinutes = Math.ceil((duration / (float) 1000) / (float) 60);
-        return (int) durationInMinutes;
-    }
-    /**
-     * This method is called when Driver/Sales Person/Delivery Boy clicks on LOGOUT
-     * button in the toolbar.
-     * On Logout, HyperTrack's stopTracking API is called to stop tracking the
-     * Driver/Sales Person/Delivery Boy
+     * This method is called when Driver/Delivery Boy clicks on LOGOUT button in the toolbar.
+     * On Logout, HyperTrack's stopTracking API is called to stop tracking the Driver/Delivery Boy
      * Note that this method is linked with the menu file (menu_main.xml)
      * using this menu item's onClick attribute. So no need to invoke this
      * method or handle logout button's click listener explicitly.
@@ -311,18 +224,18 @@ public class MileageTracking extends BaseActivity {
      * @param menuItem
      */
     public void onLogoutClicked(MenuItem menuItem) {
-        Toast.makeText(MileageTracking.this, R.string.main_logout_success_msg, Toast.LENGTH_SHORT).show();
+        Toast.makeText(OrderTracking.this, R.string.main_logout_success_msg, Toast.LENGTH_SHORT).show();
 
         // Stop tracking a user
         HyperTrack.stopTracking();
 
-        // Clear Driver/Sales Person/Delivery Boy Session here
+        // Clear Driver/Delivery Boy Session here
         SharedPreferenceStore.clearIDs(this);
 
         // Proceed to LoginActivity for a fresh Login
         Intent loginIntent = new Intent(this, LoginActivity.class);
         loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        loginIntent.putExtra("use_case",2);
+        loginIntent.putExtra("use_case",1);
         startActivity(loginIntent);
         finish();
     }

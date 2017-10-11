@@ -1,4 +1,4 @@
-package com.lvovsky.trucktrack.util;
+package com.lvovsky.tracktruck.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;

@@ -1,4 +1,4 @@
-package com.lvovsky.trucktrack;
+package com.lvovsky.tracktruck;
 
 import android.app.Application;
 

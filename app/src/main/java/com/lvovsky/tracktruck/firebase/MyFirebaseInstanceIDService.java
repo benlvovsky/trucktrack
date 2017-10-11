@@ -1,4 +1,4 @@
-package com.lvovsky.trucktrack.firebase;
+package com.lvovsky.tracktruck.firebase;
 
 import android.util.Log;
 
